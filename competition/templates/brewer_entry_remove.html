@@ -1,0 +1,28 @@
+{% extends "competition_base.html" %}
+{% load crispy_forms_tags %}
+
+{% block single_col_content %}
+{% if user.is_authenticated %}
+<div class="comp_form">
+    <ul class="breadcrumb">
+      <li><a href="{% url brewer_profile %}">Home</a> <span class="divider">/</span></li>
+      <li class="active">Remove Entry</li>
+    </ul>
+<div class="row">
+  <div class="span2 form_gutter">&nbsp;</div>
+  <div class="span8 form_col">
+    <h4>Remove Entry</h4>
+
+{% crispy form %}
+
+  </div>
+  <div class="span2 form_gutter">&nbsp;</div>
+</div>
+<div class="row"><div class="span12">&nbsp;</div></div>
+</div>
+
+
+{% endif %}
+
+{% endblock %}
+

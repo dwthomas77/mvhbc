@@ -1,0 +1,31 @@
+{% extends "competition_base.html" %}
+
+{% block single_col_content %}
+
+{% if is_officer %}
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">Officer Tools</a>
+    <ul class="nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="{% url ot_entries %}">Entries</a></li>
+      <li><a href="{% url ot_brewers %}">Brewers</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span1"></div>
+  <div class="span11">
+    <table class="table">
+      <tr><td>Number of Entries: </td><td>{{ ot_info_entries }}</td></tr>
+      <tr><td>Paid Entries: </td><td>{{ ot_info_paid }}</td></tr>
+      <tr><td>Number of Brewers: </td><td>{{ ot_info_brewers }}</td></tr>
+    </table>
+  
+</div>
+</div>
+{% endif %}
+
+{% endblock %}
+

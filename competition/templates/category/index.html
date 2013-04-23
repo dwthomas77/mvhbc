@@ -1,0 +1,10 @@
+  <ul>
+  {% for category in category_all_list %}
+    <li>{{category.category_id}} {{category.category_name}}</li>
+      <ul>
+      {% for style in category.style_set.all %}
+        <li>{{ category.category_id}}{{ style.style_id}} {{style.style_name}}</li>
+      {% endfor %}
+      </ul>
+  {% endfor %}
+  </ul>

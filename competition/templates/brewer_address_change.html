@@ -1,0 +1,36 @@
+{% extends "competition_base.html" %}
+{% load crispy_forms_tags %}
+
+{% block single_col_content %}
+{% if user.is_authenticated %}
+<div class="comp_form">
+    <ul class="breadcrumb">
+      <li><a href="{% url brewer_profile %}">Home</a> <span class="divider">/</span></li>
+      <li class="active">Change Address</li>
+    </ul>
+<div class="row">
+  <div class="span2 form_gutter">&nbsp;</div>
+  <div class="span8 form_col">
+    <h4>Change Address</h4>
+
+
+<form  id="registrationForm" class="form-horizontal" method="post">
+{% csrf_token %}
+<div id="first_name" class="control-group"><label for="id_first_name" class="control-label requiredField">
+				First Name<span class="asteriskField">*</span></label><div class="controls"><input name="first_name" value="{{ user.first_name }}" class="textinput textInput" maxlength="100" type="text" id="id_first_name" /></div></div>
+                
+                <div id="last_name" class="control-group"><label for="id_last_name" class="control-label requiredField">
+				Last Name<span class="asteriskField">*</span></label><div class="controls"><input name="last_name" value="{{ user.last_name }}" class="textinput textInput" maxlength="100" type="text" id="id_last_name" /></div></div>
+{% crispy form %}
+<input type="submit" value="Submit" class="btn btn-primary">
+</form>
+  </div>
+  <div class="span2 form_gutter">&nbsp;</div>
+</div>
+  <div class="row"><div class="span12">&nbsp;</div></div>
+</div>
+
+{% endif %}
+
+{% endblock %}
+

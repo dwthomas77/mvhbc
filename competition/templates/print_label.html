@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>MVHBC Homebrew Competition Labels</title>
+<style type="text/css">
+	.body {padding:0px 0px 0px 50px; font-family:arial;}
+	.label{width:350px;height:300px;border:thick black solid; font-family:arial;float:left; padding:10px; margin-right:15px; margin-bottom:15px;}
+	.titlebar {text-align:center;margin-bottom:40px;}
+	.titlebar img{float:left;}
+	.infoLine {margin:20px;0px;0px;20px;}
+	.entryLine {width:200px;}
+        td:first-child{text-align:right; width:100px;}
+        table{width:100%}
+        td{vertical-align:top;}
+</style>
+
+</head>
+<body>
+<p>MERRIMACK VALLEY HOMEBREW COMPETITION 2013 - PRINT LABELS</p>
+{% for entry in elist %}
+<div class="label">
+	<div class="titlebar">
+		<img src="/media/mvhbcLabelLogo.jpg" height="75" width="154">Merrimack Valley Homebrew Club Competition 2013
+	</div>
+	<table class="table table-striped">
+		<tr><td>ID:</td><td id="infoStyle" class="entryLine">{{entry.competition_id}}</td></tr>
+                <tr><td>Category: </td><td id="infoName" class="entryLine">{{entry.style.category.category_id}} {{entry.style.category.category_name}}</td></tr>
+                <tr><td>Style: </td><td id="infoName" class="entryLine">{{entry.style.style_id}} {{entry.style.style_name}}</td></tr>
+		<tr><td>Comments: </td><td id="infoId" class="entryLine">{{entry.comments}}</td></tr>		
+	</table>
+</div>
+<div class="label">
+        <div class="titlebar">
+                <img src="/media/mvhbcLabelLogo.jpg" height="75" width="154">Merrimack Valley Homebrew Club Competition 2013
+        </div>
+        <table class="table table-striped">
+                <tr><td>ID:</td><td id="infoStyle" class="entryLine">{{entry.competition_id}}</td></tr>
+                <tr><td>Category: </td><td id="infoName" class="entryLine">{{entry.style.category.category_id}} {{entry.style.category.category_name}}</td></tr>
+                <tr><td>Style: </td><td id="infoName" class="entryLine">{{entry.style.style_id}} {{entry.style.style_name}}</td></tr>
+                <tr><td>Comments: </td><td id="infoId" class="entryLine">{{entry.comments}}</td></tr>
+        </table>
+</div>
+<div style="clear:both"></div>
+{% endfor %}
+</body>

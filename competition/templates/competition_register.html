@@ -1,0 +1,35 @@
+{% extends "competition_base.html" %}
+
+{% block single_col_content %}
+{% load crispy_forms_tags %}
+
+<br><br>
+{{stat}}
+<div id="judge">
+<div class="appbar1">Registration Form<div class="apptitle">MVHBC Competition - Saturday, June 1st 2013</div></div>
+<div class="comp_form">
+<div class="row"><div class="span12">&nbsp;</div></div>
+<div class="row">
+  <div class="span2 form_gutter">&nbsp;</div>
+  <div class="span8 form_col">
+
+
+<h4>Homebrew Competition Registration</h4>
+<p>Registration allows you to submit and manage competition entries and print labels.</p>
+
+<form  id="registrationForm" class="form-horizontal" method="post">
+{% csrf_token %}
+{% crispy myUserForm %}
+{% crispy addressForm %}
+{% crispy brewerForm %}
+<input type="submit" value="Submit" class="btn btn-primary">
+</form>
+  </div>
+  <div class="span2 form_gutter">&nbsp;</div>
+</div>
+</div>
+
+</div>
+
+{% endblock %}
+

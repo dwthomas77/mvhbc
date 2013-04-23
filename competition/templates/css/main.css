@@ -1,0 +1,65 @@
+/* GLOBAL - all pages */
+body{padding:0px;margin:0px;font-family:arial; width:100%; background-image:url('../media/wood004.jpg');}
+h2 {text-align:center;}
+h3{text-align:left; font-size:14px; padding-left:10px;}
+.links{background-color:#996633; padding:5px;}
+.links a{color:#FFFCCC; text-decoration:none;}
+.links a:hover{text-decoration:underline;}
+
+#mvFramework{position:relative; width:980px; margin:0px auto; overflow:hidden; background-color:white}
+#mvLogo{background-color:white; width:100%; text-align:center;}
+#mvLogo img{margin:0px auto;display:block;}
+#mvFooterBar{width:970px; margin:0px; background-color:#663300;color:#FFFCCC;text-align:center;padding: 2px 10px 3px 0px;font-size:12px;}
+#mvFooterBar a{color:white;text-decoration:none;}
+#mvFooterBar a:hover{color:white;text-decoration:underline;}
+.ital{font-style:italic}
+.floatLeft{float:left;}
+.floatRight{float:right;}
+.center{text-align:center;}
+
+/* CLUB SECTION PAGES */
+.officers{background-color:#996633; padding:5px; color:white;}
+.officers a{color:#FFFCCC; text-decoration:none;}
+.officers a:hover{text-decoration:underline;}
+
+/* NAV BAR */
+#mvNavBar{background-color:#663300; width:100%;float:left;}
+#mvNavBar ul{list-style:none;margin:0px auto;padding:0px; width:700px;}
+#mvNavBar li{float:left;text-align:center;}
+#mvNavBar a{color:#FFFCCC;text-decoration:none;display:block;width:175px;font-size:18px;}
+#mvNavBar .dropDown{position:absolute;background-color:#CCCCCC;display:none;}
+#mvNavBar .dropDown a{background-color:white;background-color:#663300; margin:1px;font-size:14px;}
+#mvNavBar .dropDown a:hover{background-color:#996633;}
+.subnav{background-color:#666666; width:100%;float:left;}
+.subnav ul{list-style:none;margin:0px auto;padding:0px;width:850px;}
+.subnav li{float:left;margin:0px 10px;text-align:center;}
+.subnav a{color:white;text-decoration:none;display:block;width:175px;}
+
+/* TWO COLUMN LAYOUT */
+#mvMainCol{text-align:center;width:630px;float:left;}
+#mvMainCol p{text-align:left;margin:0px 15px 10px 15px;}
+#mvSubCol{background-color:white;width:330px;margin-right:10px;padding-top:25px;}
+
+/* ONE COLUMN LAYOUT */
+#mvSingleCol{width:100%;}
+#mvSingleCol p{ padding:0px 25px;}
+
+/* AHA BANNER AD */
+#mvBanner{width:728px; margin:0px auto;}
+
+/* JAVASCRIPT BASED ELEMENTS */
+#jsCal{display:none; width:100%; height:250px;}
+
+/* COMPETITION STYLES */
+.logos {margin: 15px auto;}
+.compTopLogo{width:300px;}
+
+/* COMPETITION RESULTS TABLE */
+table{width:100%;font-size:15px;}
+.resultsCategory{background-color:#996633; color:#FFFCCC;}
+.resultsCategory td{padding:2px 20px;}
+.resultsPlace{ width:30px; padding:0px 15px;}
+.resultsBrewer{width:120px; padding-left:0px;}
+.resultsTown{width:160px;padding-left:0px;}
+.resultsStyle{width:230px;}
+.resultsTotal{background-color:#CCCCCC;font-size:10pt;}

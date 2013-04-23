@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Merrimack Valley Homebrew Club - Competition Page</title>
+  <meta name="description" content="Merrimack Valley Homebrew Competition will be held on May 25 2013, Entries due by May 11, 2013" />
+  <link rel="stylesheet" href="/css/main.css" type="text/css" />
+  <link href="/css/bootstrap.css" rel="stylesheet">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+
+
+  <!-- FRAMEWORK -->
+  <div id="mvFramework">
+
+    <!-- MVHBC LOGO -->
+    <div id="mvLogo"><a href="//www.mvhbc.com"><img src="/media/mvhbcLogo.jpg" width="400" height="235" border="0"></a></div>
+
+   <!-- NAV BAR -->
+    <div id="mvNavBar">
+      <ul class="topTier">
+        <li>
+          <a class="mainDrop" href="http://www.mvhbc.com/">Club</a>
+          <div class="dropDown">
+            <a href="http://www.mvhbc.com/">Home</a>
+            <a href="http://www.mvhbc.com/about.html">About</a>
+            <a href="http://mvhbc.com/photos/">Photo Gallery</a>
+			<a href="http://mvhbc.com/membership.html">Membership</a>
+            <a href="http://mvhbc.com/officers.html">Officers</a>
+          </div>
+        </li>
+        <li>
+          <a class="mainDrop" href="http://www.mvhbc.com/competition/">Competition</a>
+          <div class="dropDown">
+            <a href="http://www.mvhbc.com/competition/">Welcome</a>		  
+            <a href="{% url login %}">Login</a>
+            <a href="{% url register %}">Register</a>
+ 
+           
+            <a href="http://www.mvhbc.com/competition/sponsors.html">Sponsors</a>
+            <a href="http://www.mvcompetition.mvhbc.com/competition/judge/register/">Judge Registration</a>
+            <a href="http://www.mvhbc.com/competition/results2012.html">2012 Results</a>
+          </div>
+        </li>		
+        <li>
+          <a class="mainDrop" onclick="return false;" href="http://www.mvhbc.com/resources/">Resources</a>
+          <div class="dropDown">
+            <a href="http://www.mvhbc.com/resources/">Links</a>
+			<!--
+            <a href="http://www.mvhbc.com/resources/recipes.html">Recipes</a>
+            <a href="http://www.mvhbc.com/resources/diy.html">Do-It-Yourself</a>
+            
+            <a href="http://www.mvhbc.com/resources/news.html">Beer in the News</a>
+			-->
+          </div>
+        </li>
+        <li>
+          <a class="mainDrop" href="http://www.mvhbc.com/index.php">Members</a>
+          <div class="dropDown">
+            <a href="http://www.mvhbc.com/index.php">Message Board</a>
+            <a href="http://www.mvhbc.com/webmail">Webmail</a>
+          </div>
+        </li>
+      </ul>
+      <div style="clear:both"></div>
+	</div>
+	<!-- NAV BAR FOR JAVASCRIPT DISABLED USERS -->
+	<noscript>
+	  <div class="subnav">
+	    <ul>
+          <li><a href="http://www.mvhbc.com/competition/">Welcome</a></li>	  
+          <li><a href="http://www.mvhbc.com/competition/results2012.html">2012 Results</a></li>
+        </ul>
+      </div>
+	</noscript>
+    <!-- MAIN/LEFT COL -->
+
+    <div id="mvSingleCol" style="clear:both">
+      {% block single_col_content %}{% endblock %}
+    </div>
+
+    
+    <div style="clear:both"></div>
+    <!-- FOOTER BAR -->
+    <div id="mvFooterBar">Merrimack Valley Homebrew Club &nbsp; ~ &nbsp; Contact Us! &nbsp; &nbsp;  Membership:<a href="mailto:president@mvhbc.com">president@mvhbc.com</a> &nbsp; &nbsp;  Website:<a href="mailto:webmaster@mvhbc.com">webmaster@mvhbc.com</a></div>
+
+  </div>
+  <script type="text/javascript" src="/script/bootstrap.js"></script>
+  <script src="/script/mvMain.js"></script>
+</body>
+</html>

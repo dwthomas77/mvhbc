@@ -1,0 +1,59 @@
+{% extends "competition_base.html" %}
+
+{% block single_col_content %}
+<br><br>
+	  <h4 style="text-align:center">Please Visit Our Sponsors!</h4>
+	 <br><br><br> <div id="sponsorgrid"></div>
+    <script>	
+	// FUNCTION TO DISPLAY X NUMBER OF SPONSORS IN A GRID LIKE PATTERN
+	// DEFAULT IS 3X ACROSS
+	mv={};
+	function printSponsors(){
+		mv.sponsorArray = [];
+		mv.sponsorArray.push({fname:"beerNwinLogo.jpg",url:"http://www.beer-wine.com/",width:226,height:103});
+                mv.sponsorArray.push({fname:"GND_big_logo1a-copy.jpg",url:"http://www.thegrillnextdoor.net/",width:125,height:125});
+                mv.sponsorArray.push({fname:"homebrewEmporium.jpg",url:"https://www.beerbrew.com/",width:216,height:109});
+                mv.sponsorArray.push({fname:"cambridge1-300x209.jpg",url:"http://www.cambrew.com/",width:300,height:209})
+		mv.sponsorArray.push({fname:"Baxter-Brewing175.jpg",url:"http://www.baxterbrewing.com/",width:175,height:175});
+		mv.sponsorArray.push({fname:"berkbrewcomp.jpg",url:"http://www.berkshirebrewingcompany.com/",width:300,height:297});
+		mv.sponsorArray.push({fname:"alchemistLogo.png",url:"http://www.alchemistbeer.com/",width:240,height:211});
+		mv.sponsorArray.push({fname:"FoundersLogo.jpg",url:"http://foundersbrewing.com/",width:300,height:221});
+		mv.sponsorArray.push({fname:"Wyeast_logo_color.jpg",url:"http://www.wyeastlab.com/",width:150,height:141});
+		mv.sponsorArray.push({fname:"NB-Logo-Large-web.jpg",url:"http://www.northernbrewer.com/",width:432,height:115});
+                mv.sponsorArray.push({fname:"Sierra-Nevada175.jpg",url:"http://www.sierranevada.com/",width:297,height:175});
+		mv.sponsorArray.push({fname:"harpoon.gif",url:"http://www.harpoonbrewery.com/",width:550,height:220});
+                mv.sponsorArray.push({fname:"pod200-1.png",url:"http://beersmith.com/",width:200,height:200});
+                mv.sponsorArray.push({fname:"moonlightMeadery.jpg",url:"http://moonlightmeadery.com/",width:567,height:450});
+		mv.sponsorArray.push({fname:"briess.gif",url:"http://www.briess.com/",width:245,height:215});
+                mv.sponsorArray.push({fname:"Cargill100.gif",url:"http://www.cargill.com/",width:165,height:100});
+                str = "";
+		// loop through sponsor array printing rows of up to 3 images
+		for(l=mv.sponsorArray.length, x=0, rowcounter=0, myspan=0; x<l; x++, rowcounter++){
+		  if(rowcounter>2){rowcounter=0} //reset row counter after every 3 images
+		  // new line
+		  if(rowcounter==0){
+			str+="<div class=\"row\">"
+			// is this full line or last line
+			if(l-x>2){ //full line
+			  myspan=4;
+			  mywidth=300;
+			}else{ //last line
+			  if(l-x+rowcounter>=1){ //if two left then span is 6 (6x2=12)
+				myspan=6;
+				mywidth=460;
+			  }else{ // else if one left row span is 12
+				myspan=12;
+			  }
+			}
+		  }
+		  str+="<div class=\"span"+myspan+"\"><div style=\"position:relative;width:"+mywidth+"px;height:300px;text-align:center;\"><a href=\""+mv.sponsorArray[x].url+"\"><img src=\"http://www.mvhbc.com/media/"+mv.sponsorArray[x].fname+"\" border=0 style=\"width:"+mv.sponsorArray[x].width+"px;margin-left:auto;margin-right:auto;\"></a></div></div>";
+		  // if end of line
+		  if(rowcounter==2 || x+1==l)
+			str+="</div>";
+		}
+		document.getElementById("sponsorgrid").innerHTML=str;
+	}
+	printSponsors();
+</script>
+{% endblock %}
+

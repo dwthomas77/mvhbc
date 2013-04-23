@@ -1,0 +1,58 @@
+{% extends "competition_base.html" %}
+
+{% block single_col_content %}
+
+{% if is_officer %}
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">Officer Tools</a>
+    <ul class="nav">
+      <li><a href="{% url ot_home %}">Home</a></li>
+      <li><a href="{% url ot_entries %}">Entries</a></li>
+      <li class="active"><a href="{% url ot_brewers %}">Brewers</a></li>
+    </ul>
+  </div>
+</div>
+
+    <table style="width:100%;" class="table table-striped table-condensed">
+      <caption><h4 class="text-info">Brewers</h4></caption>
+      <thead>
+        <tr>
+          <th>ID</th><th>Brewer</th><th>Address</th><th>Entries</th>
+        </tr>
+      <tbody>
+
+{% for b in brewers %}
+<tr><td>{{ b.id }}</td><td>{{ b.name }}</td>
+<td>
+<address>
+  {{ b.address|safe }}
+        <br><abbr title="Email Address">E: {{ b.email }}</abbr>
+</address>
+</td>
+<td>
+<table class="table table-condensed table-bordered">
+  <caption>Entries: {{ b.entries|length }}</caption>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Style</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in b.entries %}
+    <tr><td>{{ e.id }}</td><td>{{ e.style }}</td><td>{{ e.style.category }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</td>
+</tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endif %}
+
+{% endblock %}
+

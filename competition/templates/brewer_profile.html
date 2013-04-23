@@ -1,0 +1,154 @@
+{% extends "competition_base.html" %}
+
+{% block single_col_content %}
+
+{% if user.is_authenticated %}
+<br><br>
+<div id="judge">
+  <div class="appbar1">Logged in as: {{ user.username }} | <a href="{% url logout %}">Logout</a> <div class="apptitle">MVHBC Competition - Saturday, June 1st 2013</div></div>
+  <div class="row">
+    <div class="span8">
+      <h4>{{ user.first_name}} {{ user.last_name }}</h4>
+      <div class="alert alert-info">
+        {% if msg %}
+        {{msg}}
+        {% else %}
+        <strong>Welcome</strong> to the MVHBC Competition System
+        <br>Entry Deadline is <strong>May 18th, 2013</strong>
+        {% endif%}
+      </div>
+      <br>
+      <div>
+          <ul>
+            <li><strong><a href="{% url competition_info %}">ENTRY RULES</a></strong></li>
+            <li><strong><a href="{% url competition_locations %}">DROP-OFF / SHIPPING LOCATION</a></strong></li>
+            <li>Entries must be dropped off or arrive shipped by May 18th</li>
+            <li>Two (2) brown bottles of each entry should be provided, from 10-22 oz. No labels or markings on bottle or cap.
+            <li>Entry fee is $6.00 if paid by check and $6.50 if paid by PayPal per entry.  
+            <li>If paid by Paypal please include your Entry IDs in the field provided.  
+            <li>If paid by check please list the Entry Ids on the check or on a separate piece of paper included with your entries.  Please make checks payable to "Merrimack Valley Homebrew Club"</li>
+          </ul>
+        <div class="text-right">
+          <a id="new_entry" href="{% url add_entry %} " target="_self" class="btn btn-success" type="button">Add New Entry <i class="icon-share icon-white"></i></a>
+        </div>
+      </div>
+      <div class="well" style="margin-top:20px">
+        <div>
+          <span class="add-on"><i class="icon-print"></i></span><strong>Print Labels</strong><br>
+          <p>The printed competition label should be attached with a rubber band to each bottle</p>
+            <div class="btn-toolbar">
+              <div class="btn-group">
+                <a href="../print/0" class="btn btn-mini btn-info" target="_blank">PRINT ALL LABELS</a>
+              </div>
+              <div class="btn-group">
+                <a class="btn btn-mini btn-info  dropdown-toggle" data-toggle="dropdown" href="#">PRINT ONE LABEL <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  {% if entries %}
+                  {% for e in entries %}
+                  <li><a href="../print/{{ e.pk }}" target="_blank">{{ e.style.style_name }} | {{ e.name }}</a></li>
+                  {% endfor %}
+                  {% endif %}
+               </ul>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="span1"></div>
+    <div class="span3">
+      <address>
+        <span class="add-on"><i class="icon-envelope"></i></span><strong>Mailing Address</strong><br>
+        {{ user.first_name}} {{ user.last_name }}<br>
+        {{ user.brewerprofile.address.street_1 }}<br>
+        {% if user.brewerprofile.address.street_2 %}
+        {{ user.brewerprofile.address.street_2 }}<br>
+        {% endif %}
+        {{ user.brewerprofile.address.city }}, {{ user.brewerprofile.address.state }} {{ user.brewerprofile.address.zip }}<br>
+        <a href="../address/" class="btn btn-mini btn-primary">Edit</a><br>
+      </address>
+      <strong>Payments</strong>
+      <br><small>Payments accepted by two methods:
+      <ol><li>Personal Check - make payable to "Merrimack Valley Homebrew Club"</li>
+      <li>Paypal - see below</li>
+      </ol></small>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<table>
+<tr><td><input type="hidden" name="on0" value="Number of Entries">Number of Entries</td></tr><tr><td><select name="os0">
+                <option value="1">1 $6.50 USD</option>
+                <option value="2">2 $13.00 USD</option>
+                <option value="3">3 $19.50 USD</option>
+                <option value="4">4 $26.00 USD</option>
+                <option value="5">5 $32.50 USD</option>
+                <option value="6">6 $39.00 USD</option>
+                <option value="7">7 $45.50 USD</option>
+                <option value="8">8 $52.00 USD</option>
+                <option value="9">9 $58.50 USD</option>
+                <option value="10">10 $65.00 USD</option>
+</select> </td></tr>
+<tr><td><input type="hidden" name="on1" value="Entry IDs">Entry IDs</td></tr><tr><td><input type="text" name="os1" maxlength="200">
+    <br><small>Your Entry IDs:
+    {% if entries %}
+        {% for s in entries %}
+        {{s.pk}}
+        {% endfor %}
+    {% endif %}
+    </small>
+</td></tr>
+</table>
+<input type="hidden" name="currency_code" value="USD">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+<small>PayPal entries should be marked as paid within 24 - 48 hours</small>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span12">SUBMITTED ENTRIES</div>
+  </div>
+  <div class="row">
+    <div class="span12">
+      <table class="table table-condensed table-striped table-bordered">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Entry Id</th>
+            <th>Category</th>
+            <th>Style</th>
+            <th>Name</th>
+            <th>Paid</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% if entries %} 
+        {% for s in entries %}
+          <tr>
+            <td>
+              <div class="btn-group">
+                <a class="btn btn-mini btn-primary" href="../entry/update/{{ s.pk }}">Edit</a>
+                <a class="btn btn-mini btn-danger" href="../entry/remove/{{ s.pk }}"> <i class="icon-remove icon-white"></i></a>
+              </div>
+            </td>
+            <td>{{s.pk}}</td>
+            <td>{{s.style.category.category_name}}</td>
+            <td>{{s.style.style_name}}</td>
+            <td>{{s.name}}</td>
+            {% if s.paid %}
+            <td><span class="btn btn-success btn-mini"><i class="icon-ok icon-white"></i></span></td>
+            {% else %}
+            <td><span class="btn btn-danger btn-mini"><i class="icon-remove icon-white"></i></span></td>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+    <p>Welcome, new user. Please log in.</p>
+{% endif %}
+
+{% endblock %}
+
