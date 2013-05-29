@@ -1,0 +1,42 @@
+{% extends "competition_base.html" %}
+
+{% block single_col_content %}
+
+{% if is_officer %}
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="{% url ot_home %}">Officer Tools</a>
+    <ul class="nav">
+      <li><a href="{% url ot_home %}">Home</a></li>
+      <li><a href="{% url ot_entries %}">Entries</a></li>
+      <li><a href="{% url ot_brewers %}">Brewers</a></li>
+      <li><a href="{% url ot_categories %}">Categories</a></li>
+      <li class="active"><a href="{% url ot_judges %}">Judges</a></li>
+      <li><a href="{% url ot_tables %}">Tables</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <table class="table table-striped">
+    <caption><strong>{{ judges|length }} Judges</strong></caption>
+    {% for j in judges %}
+      <tr><td>{{ j.last_name }}</td><td>{{ j.first_name }}</td><td>{{ j.email }}</td></tr>
+    {% endfor %}
+    </table>
+
+  </div>
+  <div class="span6">
+    <table class="table table-striped">
+    <caption><strong>{{ stewards|length }} Stewards</strong></caption>
+    {% for s in stewards %}
+      <tr><td>{{ s.last_name }}</td><td>{{ s.first_name }}</td><td>{{ s.email }}</td></tr>
+    {% endfor %}
+    </table>
+  </div
+</div>
+{% endif %}
+
+{% endblock %}
+

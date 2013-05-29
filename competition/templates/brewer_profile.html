@@ -3,7 +3,8 @@
 {% block single_col_content %}
 
 {% if user.is_authenticated %}
-<br><br>
+<br>
+<br>
 <div id="judge">
   <div class="appbar1">Logged in as: {{ user.username }} | <a href="{% url logout %}">Logout</a> <div class="apptitle">MVHBC Competition - Saturday, June 1st 2013</div></div>
   <div class="row">
@@ -14,23 +15,26 @@
         {{msg}}
         {% else %}
         <strong>Welcome</strong> to the MVHBC Competition System
-        <br>Entry Deadline is <strong>May 18th, 2013</strong>
+        <br><strong>Registration is Closed</strong>
+        <br>All entries must have been submitted by May 18th, 2013.  Thank you for participating!
         {% endif%}
       </div>
-      <br>
+      {% if is_officer %}
+      <a href="{% url ot_home %}">Officer Tools</a>
+      {% endif %}
       <div>
           <ul>
             <li><strong><a href="{% url competition_info %}">ENTRY RULES</a></strong></li>
             <li><strong><a href="{% url competition_locations %}">DROP-OFF / SHIPPING LOCATION</a></strong></li>
             <li>Entries must be dropped off or arrive shipped by May 18th</li>
-            <li>Two (2) brown bottles of each entry should be provided, from 10-22 oz. No labels or markings on bottle or cap.
+            <li>Two (2) bottles per entry, 10 to 16 ounces, any style. No labels or silk-screening, is allowed. Raised lettering on bottles is strongly discouraged, but bottles with generic raised lettering will be accepted. Caps must be plain or blacked out.</li>
             <li>Entry fee is $6.00 if paid by check and $6.50 if paid by PayPal per entry.  
             <li>If paid by Paypal please include your Entry IDs in the field provided.  
             <li>If paid by check please list the Entry Ids on the check or on a separate piece of paper included with your entries.  Please make checks payable to "Merrimack Valley Homebrew Club"</li>
           </ul>
-        <div class="text-right">
+        <!-- <div class="text-right">
           <a id="new_entry" href="{% url add_entry %} " target="_self" class="btn btn-success" type="button">Add New Entry <i class="icon-share icon-white"></i></a>
-        </div>
+        </div>-->
       </div>
       <div class="well" style="margin-top:20px">
         <div>

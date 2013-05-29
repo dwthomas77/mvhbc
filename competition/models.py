@@ -8,6 +8,10 @@ from django.contrib.auth.models import User
 from django.contrib.localflavor.us.us_states import US_STATES
 from django.contrib.localflavor.us.models import USStateField, PhoneNumberField
 
+class CompetitionTable(models.Model):
+  name = models.CharField(max_length=100)
+  session = models.CharField(max_length=250)
+
 class Address(models.Model):
   street_1 = models.CharField(max_length=100)
   street_2 = models.CharField(max_length=100, blank=True)
@@ -37,6 +41,7 @@ class Category(models.Model):
     ('Cider', 'Cider'),
   )
   category_type = models.CharField(max_length=200, choices=TYPE_CHOICES, default='Lager')
+  competition_table = models.ForeignKey(CompetitionTable, null=True, blank=True)
   class Meta:
     ordering = ['category_id',]
     verbose_name = "category"
@@ -72,6 +77,7 @@ class Submission(models.Model):
   paid = models.BooleanField(default=False)
   score = models.IntegerField(blank=True, null=True)
   place = models.IntegerField(blank=True, null=True)
+  pull_order = models.IntegerField(blank=True, null=True)
   def __unicode__(self):
     cat_id = str(self.style.category.pk)
     sub_id = str(self.pk)
@@ -111,6 +117,7 @@ class Judge(models.Model):
   cat_pref_yes = models.ManyToManyField(Category, verbose_name='Categories Preferred To Judge', blank=True, null=True, related_name='yes+')
   cat_pref_no = models.ManyToManyField(Category, verbose_name='Categories Preferred Not To Judge', blank=True, null=True, related_name='no+')
   notes = models.TextField(blank=True)
+  competition_table = models.ForeignKey(CompetitionTable, null=True, blank=True)
   def __unicode__(self):
     name_str = self.first_name + " " + self.last_name
     return name_str

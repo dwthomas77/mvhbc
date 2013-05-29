@@ -1,7 +1,8 @@
 # Create your views here.
+import math
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context, loader
-from competition.models import Submission, Style, Category, Judge, JudgeForm, Address, BrewerProfile
+from competition.models import Submission, Style, Category, Judge, JudgeForm, Address, BrewerProfile, CompetitionTable
 from django.forms.models import modelform_factory, modelformset_factory
 from django.shortcuts import render_to_response, render, redirect, get_object_or_404
 from competition.forms import UserForm, BrewerProfileForm, AddressForm, SubmissionForm, SubmissionFormRemove, SubmissionFormUpdate
@@ -77,6 +78,144 @@ def ot_brewers(request):
     return render(request, "ot_brewers.html", ot_dict)
   else:
     return redirect('login')
+
+def ot_categories(request):
+  #users_in_group = Group.objects.get(name="officer").user_set.all()
+  if request.user.groups.filter(name="officer").count():
+    cats = []
+    for c in Category.objects.all():
+      total_count = 0
+      style_q = Style.objects.filter(category=c)
+      styles = []
+      for s in style_q:
+        entry_count = Submission.objects.filter(style=s).count()
+        entries = Submission.objects.filter(style=s)
+        total_count += entry_count
+        styles.append({
+          "name": s.style_name,
+          "count": entry_count,
+          "entries": entries
+        })
+      cats.append({
+        "name": c.category_name,
+        "id": c.pk,
+        "total_count": total_count,
+        "styles": styles
+      })
+    ot_dict = {
+      "is_officer": True,
+      "cats": cats
+    }
+    return render(request, "ot_categories.html", ot_dict)
+  else:
+    return redirect('login')
+
+def ot_judges(request):
+  if request.user.groups.filter(name="officer").count():
+    judges = Judge.objects.filter(judge_pref="Judge")
+    stewards = Judge.objects.filter(judge_pref="Steward")
+    ot_dict={
+      "is_officer": True,
+      "judges": judges,
+      "stewards": stewards
+    }
+    return render(request, "ot_judges.html", ot_dict)
+  else:
+    return redirect('login')
+
+def ot_tables(request):
+  if request.user.groups.filter(name="officer").count():
+    tables = []
+    tables_d = []
+    tables_p = []
+    if not tables:
+      table_id = len(tables)+1
+      tables.insert(0,{
+        "categories":[],
+        "total_count": 0,
+        "status": "new"
+      })
+    cur_table = tables[0]
+    max_table_size = 12
+    hold_table_size = 8
+    categories = []
+    tables_q = CompetitionTable.objects.all()
+    cats_q = Category.objects.all()
+    jq = Judge.objects.filter(judge_pref="Judge")
+    for c in cats_q:
+      # Get all entries for the styles associated with the category
+      style_q = Style.objects.filter(category=c)      
+      entries = []
+      for s in style_q:
+        entries_q = Submission.objects.filter(style=s)
+        for e in entries_q:
+          entries.append({
+            "id": e.pk,
+            "style": e.style
+          })
+      # build category object to add to a table
+      cur_cat = {
+        "category":c,
+        "entries":entries
+        }
+      # 1 A
+      if(len(entries)):
+        added = False
+        # 2
+        for i,t in enumerate(tables):
+          # 2 A if there is room in current table for next category
+          if((t["total_count"] + len(entries)) <= max_table_size):
+            # 2 B Add it
+            t["categories"].append(cur_cat)
+            t["total_count"] += len(entries)
+            added = True
+            # 2 C if the table is big enough to hold
+            if(t["total_count"] >= hold_table_size):
+              # 2 D add it to done tables
+              tables_d.append(t)
+              tables.remove(t)
+            break
+            
+        #3 If not added yet make new table
+        if not added:
+          # 3A if there is enough entries in this cat to hold a full table
+          if(len(entries) >= hold_table_size):
+            # 3 B add full table to done list
+            tables_d.append({
+              "categories":[cur_cat],
+              "total_count": len(entries),
+              "status": "new"
+             })
+          else:
+            #3 C else add to reuglar table list
+            tables.append({
+              "categories":[cur_cat],
+              "total_count": len(entries),
+              "status": "new"
+             })
+    
+    tables_d.extend(tables)
+
+    if((jq.count()/2)<=len(tables_d)):
+      sessions=2
+      tables_per_session=math.ceil(len(tables_d)/2)
+      judges_per_session=tables_per_session * 2
+    else:
+      sessions=1
+      tables_per_session=len(tables_d)
+      judges_per_session=len(tables_d)*2
+    ot_dict={
+      "is_officer": True,
+      "tables": tables_d,
+      "judges": jq,
+      "sessions": sessions,
+      "tables_per_session": tables_per_session,
+      "judges_per_session": judges_per_session
+    }
+    return render(request, "ot_tables.html", ot_dict)
+  else:
+    return redirect('login')
+
 
 def print_label(request, e_pk):
   if e_pk == '0':
@@ -207,8 +346,12 @@ def login_result(request):
     dollarsSpent = submission_query.count() * 6
     dollarsPaid = 0
     dollarsOwed = dollarsSpent - dollarsPaid    
+    if request.user.groups.filter(name="officer").count():
+      isOfficer = True
+    else:
+      isOfficer = False
     login_dict = {
-      'var1': 'test',
+      'is_officer': isOfficer,
       'dollarsSpent': dollarsSpent,
       'dollarsPaid': dollarsPaid,
       'dollarsOwed': dollarsOwed,

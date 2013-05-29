@@ -1,0 +1,42 @@
+{% extends "competition_base.html" %}
+
+{% block single_col_content %}
+
+{% if is_officer %}
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">Officer Tools</a>
+    <ul class="nav">
+      <li><a href="{% url ot_home %}">Home</a></li>
+      <li><a href="{% url ot_entries %}">Entries</a></li>
+      <li><a href="{% url ot_brewers %}">Brewers</a></li>
+      <li class="active"><a href="{% url ot_categories %}">Categories</a></li>
+      <li><a href="{% url ot_judges %}">Judges</a></li>
+      <li><a href="{% url ot_tables %}">Tables</a></li>
+    </ul>
+  </div>
+</div>
+
+    <table style="width:80%; margin-left:25px;" class="table table-striped table-condensed">
+      <caption><h4 class="text-info">Categories</h4></caption>
+      {% for c in cats %}
+      <thead>
+        <tr>
+          <th>{{ c.id}}</th><th>{{ c.name }}</th><th>{{ c.total_count }} Entries</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in c.styles %}
+        <tr>
+          <td>{{ s.id }}</td>
+          <td>{{ s.name }}</td>
+          <td>{{ s.count }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    {% endfor %}
+    </table>
+{% endif %}
+
+{% endblock %}
+

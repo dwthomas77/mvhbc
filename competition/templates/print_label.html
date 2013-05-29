@@ -4,7 +4,7 @@
 <title>MVHBC Homebrew Competition Labels</title>
 <style type="text/css">
 	.body {padding:0px 0px 0px 50px; font-family:arial;}
-	.label{width:350px;height:300px;border:thick black solid; font-family:arial;float:left; padding:10px; margin-right:15px; margin-bottom:15px;}
+	.label{width:350px;height:250px;border:thick black solid; font-family:arial;padding:10px; margin-right:15px; margin-bottom:15px;}
 	.titlebar {text-align:center;margin-bottom:40px;}
 	.titlebar img{float:left;}
 	.infoLine {margin:20px;0px;0px;20px;}
@@ -29,7 +29,11 @@
 		<tr><td>Comments: </td><td id="infoId" class="entryLine">{{entry.comments}}</td></tr>		
 	</table>
 </div>
+{% if forloop.last %}
 <div class="label">
+{% else %}
+<div class="label" style="page-break-after:always;">
+{% endif %}
         <div class="titlebar">
                 <img src="/media/mvhbcLabelLogo.jpg" height="75" width="154">Merrimack Valley Homebrew Club Competition 2013
         </div>

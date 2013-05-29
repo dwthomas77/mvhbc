@@ -1,0 +1,76 @@
+{% extends "competition_base.html" %}
+
+{% block single_col_content %}
+
+{% if is_officer %}
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="{% url ot_home %}">Officer Tools</a>
+    <ul class="nav">
+      <li><a href="{% url ot_home %}">Home</a></li>
+      <li><a href="{% url ot_entries %}">Entries</a></li>
+      <li><a href="{% url ot_brewers %}">Brewers</a></li>
+      <li><a href="{% url ot_categories %}">Categories</a></li>
+      <li><a href="{% url ot_judges %}">Judges</a></li>
+      <li class="active"><a href="{% url ot_tables %}">Tables</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6" style="padding-left:15px">
+    {% for t in tables %}
+      <table class="table table-condensed table-bordered">
+      <thead><tr style="background-color:#CCCCCC"><th style="background-color:black; color:white;">{{ forloop.counter }}</th><th style="" colspan="2">
+      {% for c in t.categories %}
+        {{ c.category.category_name }}{% if not forloop.last%},{% endif %}
+      {% endfor %}
+      </th><th style="background-color:black; color:white;">{{ t.total_count }}</th></tr></thead>
+      <tbody>
+      {% for c in t.categories %}
+      <tr style="background-color:#99CCFF;color:black;"><td colspan="3">{{ c.category.category_name }}</td><td>{{ c.entries|length }}</td></tr>
+        {% for e in c.entries %}
+        <tr style="background-color:#FFFFFF;"><td></td><td>{{ e.id }}</td><td>{{ e.style.style_name }}</td><td></td></tr>
+        {% endfor %}
+      {% endfor %}
+      </tbody>
+      <thead><tr style="background-color:#0066CC;color:white;font-weight:normal;"><th style="font-weight:normal" colspan="4">Judges 
+      </th></tr></thead>
+      <tbody>
+      {% if t.total_count > 15 %}
+        <tr><td></td><td>Judge 1</td><td></td><td></td></tr>
+        <tr><td></td><td>Judge 2</td><td></td><td></td></tr>
+        <tr><td></td><td>Judge 3</td><td></td><td></td></tr>
+        <tr><td></td><td>Judge 4</td><td></td><td></td></tr>
+      {% else %}
+        <tr><td></td><td>Judge 1</td><td></td><td></td></tr>
+        <tr><td></td><td>Judge 2</td><td></td><td></td></tr>
+      {% endif %}
+      </tbody></table><br><br>
+    {% endfor %}
+
+  </div>
+  <div class="span6">
+    <p>Tables: {{ tables|length }}
+    <br>Judges: {{ judges|length }}
+    <br>Sessions: {{ sessions }}
+    <br>Tables Per Session: {{ tables_per_session }}
+    <br>Judges Per Session: {{ judges_per_session }}
+    </p>
+    <table class="table table-condensed table-striped"><caption><strong>Available Judges</strong></caption>
+    <thead><tr><th>Name</th><th>Can't Judge:</th></tr></thead><tbody>
+    {% for j in judges %}
+      <tr><td valign="top">{{ j }}</td>
+      <td>{% for c in j.cat_pref_no.all %}
+          {{ c }}<br>
+          {% endfor %}
+      </td></tr>
+    {% endfor %}
+    </tbody></table>
+  </div>
+
+</div>
+{% endif %}
+
+{% endblock %}
+
