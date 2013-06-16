@@ -6,9 +6,9 @@
   <div class="span2 form_gutter">&nbsp;</div>
   <div class="span8 form_col">
     <h4>MVHBC Competition Login</h4>
-    <p>Haven't signed up?  <a href="{% url register %}">Register Now</a> to join the competition, submit entries and print labels.</p>
+    <p>Haven't signed up?  <a href="{% url "register" %}">Register Now</a> to join the competition, submit entries and print labels.</p>
     {% if form.errors %}<p class="text-error">Your username and password didn't match. Please try again.</p>{% endif %}
-    <form method="post" action="{% url django.contrib.auth.views.login %}">
+    <form method="post" action="{% url "django.contrib.auth.views.login" %}">
       {% csrf_token %}
       <table>
         <tr>
@@ -23,7 +23,7 @@
       <input type="submit" value="login" />
       <input type="hidden" name="next" value="{{ next }}" />
     </form>
-    <p><small>Forgot your username or password? <a href="{% url password_reset %}">Click to reset your account by email.</a></small> </p>
+    <p><small>Forgot your username or password? <a href="{% url "password_reset" %}">Click to reset your account by email.</a></small> </p>
   </div>
   <div class="span2 form_gutter">&nbsp;</div>
 </div>

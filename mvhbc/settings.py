@@ -1,4 +1,9 @@
 # Django settings for clubmanager_dev project.
+from os.path import join, abspath, dirname
+
+here = lambda *x: join(abspath(dirname(__file__)), *x)
+PROJECT_ROOT = here("..", "..")
+root = lambda *x: join(abspath(PROJECT_ROOT), *x)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -13,7 +18,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home2/mvhbccom/django/django_projects/mvhbc/mvhbc/mvhbc.db', # Or path to database file if using sqlite3.
+        'NAME': join(PROJECT_ROOT,'mvhbc/mvhbc.db'), # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -117,8 +122,8 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/home2/mvhbccom/django/django_projects/mvhbc/mvhbc/templates/',
-    '/home2/mvhbccom/django/django_projects/mvhbc/competition/templates/',
+    join(PROJECT_ROOT,'mvhbc/mvhbc/templates/'),
+    join(PROJECT_ROOT,'mvhbc/competition/templates/'),
 )
 
 INSTALLED_APPS = (

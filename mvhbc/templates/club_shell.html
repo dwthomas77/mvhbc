@@ -15,40 +15,40 @@
   <div id="mvFramework">
 
     <!-- MVHBC LOGO -->
-    <div id="mvLogo"><a href="{% url home %}"><img src="/media/mvhbcLogo.jpg" width="400" height="235" border="0"></a></div>
+    <div id="mvLogo"><a href="{% url "home" %}"><img src="/media/mvhbcLogo.jpg" width="400" height="235" border="0"></a></div>
 
    <!-- NAV BAR -->
     <div id="mvNavBar">
       <ul class="topTier">
         <li>
-          <a class="mainDrop" href="{% url home %}">Club</a>
+          <a class="mainDrop" href="{% url "home" %}">Club</a>
           <div class="dropDown">
-            <a href="{% url home %}">Home</a>
-            <a href="{% url about %}">About</a>
-	    <a href="{% url membership %}">Membership</a>
-            <a href="{% url officers %}">Officers</a>
+            <a href="{% url "home" %}">Home</a>
+            <a href="{% url "about" %}">About</a>
+	    <a href="{% url "membership" %}">Membership</a>
+            <a href="{% url "officers" %}">Officers</a>
           </div>
         </li>
         <li>
-          <a class="mainDrop" href="{% url competition_home %}">Competition</a>
+          <a class="mainDrop" href="{% url "competition_home" %}">Competition</a>
           <div class="dropDown">
-            <a href="{% url competition_home %}">Welcome</a>		  
-            <a href="{% url login %}">Login</a>
-            <a href="{% url register %}">Register</a>
-            <a href="{% url competition_info %}">Entry Info</a>
-            <a href="{% url competition_locations %}">Mail / Drop-Off Locations</a>
+            <a href="{% url "competition_home" %}">Welcome</a>		  
+            <a href="{% url "login" %}">Login</a>
+            <a href="{% url "register" %}">Register</a>
+            <a href="{% url "competition_info" %}">Entry Info</a>
+            <a href="{% url "competition_locations" %}">Mail / Drop-Off Locations</a>
  
            
-            <a href="{% url competition_sponsors %}">Sponsors</a>
- <a href="{% url judge_register %}">Judge Registration</a>
+            <a href="{% url "competition_sponsors" %}">Sponsors</a>
+ <a href="{% url "judge_register" %}">Judge Registration</a>
             
-<a href="{% url competition_results %}">2012 Results</a>
+<a href="{% url "competition_results" %}">2012 Results</a>
           </div>
         </li>		
         <li>
           <a class="mainDrop" onclick="return false;" href="http://www.mvhbc.com/resources/">Resources</a>
           <div class="dropDown">
-            <a href="{% url resources %} ">Links</a>
+            <a href="{% url "resources" %} ">Links</a>
 			<!--
             <a href="http://www.mvhbc.com/resources/recipes.html">Recipes</a>
             <a href="http://www.mvhbc.com/resources/diy.html">Do-It-Yourself</a>
